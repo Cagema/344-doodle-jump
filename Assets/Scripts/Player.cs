@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [SerializeField] Sprite _jumpSprite;
+    [SerializeField] Sprite _idleSprite;
+
     [SerializeField] float _jumpForce;
     [SerializeField] float _horSpeed;
     [SerializeField] bool _flip;
@@ -76,6 +79,18 @@ public class Player : MonoBehaviour
                 GameManager.Single.LostLive();
                 Destroy(gameObject);
             }
+        }
+    }
+
+    private void LateUpdate()
+    {
+        if (_rb.velocity.y > 0)
+        {
+            _sr.sprite = _jumpSprite;
+        }
+        else
+        {
+            _sr.sprite = _idleSprite;
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
